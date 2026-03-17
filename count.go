@@ -2,9 +2,14 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
+func CountWord(word string) int {
+	return len(strings.Fields(word))
+
+}
+
 func main() {
-	arry := []string{"hello", "world"}
-	fmt.Println(len(arry))
+	fmt.Println(CountWord("hello, world"))
 }
