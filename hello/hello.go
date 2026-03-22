@@ -4,10 +4,22 @@ import (
 	"fmt"
 )
 
-func main() {
-	for ch := 'z'; ch >= 'a'; ch-- {
-		fmt.Printf("%c ", ch)
+func FirstUniqueChar(s string) int {
+	count := make(map[rune]int)
 
+	for _, char := range s {
+		count[char]++
 	}
-	fmt.Println()
+	for _, char := range s {
+		if count[char] == 1 {
+			return char
+		}
+	}
+	return 0
+}
+
+func main() {
+	s := "swiss"
+	result := FirstUniqueChar(s)
+	fmt.Println(result)
 }
