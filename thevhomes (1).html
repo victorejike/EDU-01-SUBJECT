@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheVHomes — Luxury Real Estate</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --black: #111010;
+  --gold: #C9A84C;
+  --gray-light: #f5f5f3;
+  --gray-mid: #e0ddd8;
+  --gray-dark: #6b6860;
+  --text: #1a1a1a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Montserrat', sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); color:var(--text); background:var(--white); overflow-x:hidden; font-size:14px; font-weight:300; }
+
+/* HEADER */
+header {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px; height:70px;
+  background:rgba(255,255,255,0.97);
+  border-bottom:1px solid var(--gray-mid);
+  transition:all 0.3s;
+}
+header.over-hero {
+  background:rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.logo {
+  font-family:var(--serif); font-size:22px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--text); text-decoration:none;
+}
+header.over-hero .logo { color:var(--white); }
+.logo span { color:var(--gold); }
+
+.nav-main { display:flex; align-items:center; }
+.nav-main a {
+  font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:500;
+  color:var(--text); text-decoration:none; padding:0 16px; height:70px;
+  display:flex; align-items:center; border-bottom:2px solid transparent;
+  transition:all 0.2s;
+}
+header.over-hero .nav-main a { color:rgba(255,255,255,0.85); }
+.nav-main a:hover { border-bottom-color:var(--gold); color:var(--gold) !important; }
+
+.nav-right { display:flex; align-items:center; gap:20px; }
+.nav-right a {
+  font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:500;
+  color:var(--text); text-decoration:none; transition:color 0.2s;
+}
+header.over-hero .nav-right a { color:rgba(255,255,255,0.85); }
+.nav-right a:hover { color:var(--gold); }
+.nav-contact {
+  border:1px solid var(--gold) !important; color:var(--gold) !important;
+  padding:8px 20px; font-size:10px !important; transition:all 0.2s !important;
+}
+.nav-contact:hover { background:var(--gold) !important; color:var(--white) !important; }
+
+/* HERO */
+.hero {
+  position:relative; height:100vh; min-height:650px;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:linear-gradient(160deg, #0f1f12 0%, #1a1208 25%, #12181f 55%, #1f1210 100%);
+}
+.hero-bg::after {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0px, transparent 40px, rgba(255,255,255,0.008) 40px, rgba(255,255,255,0.008) 41px);
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%);
+}
+.hero-content { position:relative; z-index:2; padding:0 20px; }
+.hero-eyebrow {
+  font-size:10px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:24px; display:inline-block;
+}
+.hero h1 {
+  font-family:var(--serif); font-size:clamp(44px,6vw,86px);
+  font-weight:300; color:var(--white); line-height:1.1;
+  margin-bottom:20px; max-width:900px;
+}
+.hero h1 em { font-style:italic; font-weight:300; }
+.hero-sub {
+  font-size:13px; color:rgba(255,255,255,0.65); letter-spacing:1px;
+  margin-bottom:52px; max-width:520px; margin-left:auto; margin-right:auto;
+  line-height:1.9;
+}
+
+/* HERO SEARCH */
+.hero-search {
+  background:rgba(255,255,255,0.96);
+  display:inline-flex; align-items:stretch;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  min-width:min(820px, 90vw);
+}
+.hs-field {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:16px 24px; border-right:1px solid var(--gray-mid);
+  min-width:160px; cursor:pointer; transition:background 0.2s;
+}
+.hs-field:hover { background:var(--gray-light); }
+.hs-field label {
+  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:5px; font-weight:600; cursor:pointer;
+}
+.hs-field select, .hs-field input {
+  font-family:var(--sans); font-size:12px; font-weight:400;
+  color:var(--text); background:transparent; border:none; outline:none; cursor:pointer;
+}
+.hs-field select option { background:white; }
+.hs-btn {
+  background:var(--gold); color:var(--white); border:none; cursor:pointer;
+  padding:0 32px; font-family:var(--sans); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; font-weight:600;
+  transition:background 0.3s; white-space:nowrap;
+}
+.hs-btn:hover { background:#b8943e; }
+
+/* SECTIONS */
+.section { padding:90px 48px; }
+.section-sm { padding:70px 48px; }
+.section-bg { background:var(--gray-light); }
+
+.tag-line {
+  font-size:10px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:14px; font-weight:600;
+  display:flex; align-items:center; gap:14px;
+}
+.tag-line::before { content:''; width:28px; height:1px; background:var(--gold); flex-shrink:0; }
+
+h2.title {
+  font-family:var(--serif); font-size:clamp(32px,3.5vw,52px);
+  font-weight:300; line-height:1.15; margin-bottom:12px;
+}
+h2.title em { font-style:italic; }
+
+.section-head {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:52px;
+}
+a.see-all {
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text); text-decoration:none; font-weight:500;
+  border-bottom:1px solid var(--text); padding-bottom:2px;
+  transition:all 0.2s; white-space:nowrap; flex-shrink:0;
+}
+a.see-all:hover { color:var(--gold); border-color:var(--gold); }
+
+/* FEATURED PROPERTIES GRID */
+.feat-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:3px;
+}
+.feat-card {
+  position:relative; overflow:hidden; cursor:pointer;
+  background:#c8c0b0;
+}
+.feat-card.hero-card { grid-column:1/3; grid-row:1/3; }
+.feat-card:hover .feat-thumb-inner { transform:scale(1.04); }
+
+.feat-thumb-inner {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, #1e2d1e 0%, #0d1e2d 60%, #2d1e0d 100%);
+  transition:transform 0.7s ease;
+  width:100%; height:100%;
+}
+.feat-card:nth-child(2) .feat-thumb-inner { background:linear-gradient(135deg,#2d1e0d,#1e0d2d); }
+.feat-card:nth-child(3) .feat-thumb-inner { background:linear-gradient(135deg,#0d2d2d,#2d0d1e); }
+
+/* make cards have height */
+.feat-card { min-height:260px; }
+.feat-card.hero-card { min-height:540px; }
+
+.feat-grad {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 55%);
+  pointer-events:none; z-index:1;
+}
+.feat-info {
+  position:absolute; bottom:0; left:0; right:0; padding:28px 24px; z-index:2;
+}
+.feat-badge {
+  display:inline-block; font-size:8px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); border:1px solid var(--gold); padding:3px 10px; margin-bottom:10px;
+}
+.feat-title {
+  font-family:var(--serif); color:var(--white); font-weight:400;
+  font-size:18px; margin-bottom:6px; line-height:1.25;
+}
+.feat-card.hero-card .feat-title { font-size:28px; }
+.feat-loc { font-size:11px; color:rgba(255,255,255,0.6); letter-spacing:0.5px; margin-bottom:10px; }
+.feat-price { font-family:var(--serif); color:var(--white); font-size:16px; }
+.feat-card.hero-card .feat-price { font-size:22px; }
+.feat-details { display:flex; gap:16px; margin-top:8px; }
+.feat-details span { font-size:10px; color:rgba(255,255,255,0.55); letter-spacing:0.5px; }
+
+/* LIFESTYLE GRID */
+.lifestyle-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:3px;
+  margin-top:52px;
+}
+.lifestyle-card {
+  position:relative; overflow:hidden; cursor:pointer;
+  aspect-ratio:3/4;
+}
+.lifestyle-card.wide { grid-column:span 2; aspect-ratio:2/1.2; }
+.lifestyle-card:hover .ls-bg { transform:scale(1.06); }
+.ls-bg {
+  position:absolute; inset:0;
+  transition:transform 0.6s ease;
+}
+.ls-bg-1 { background:linear-gradient(135deg,#1a0d05,#0d1a14,#05101a); }
+.ls-bg-2 { background:linear-gradient(135deg,#1a1405,#0a1a0a,#1a0514); }
+.ls-bg-3 { background:linear-gradient(135deg,#05141a,#1a0505,#0a1405); }
+.ls-bg-4 { background:linear-gradient(135deg,#140a1a,#1a1400,#001a14); }
+.ls-bg-5 { background:linear-gradient(135deg,#001414,#140014,#001400); }
+.ls-bg-6 { background:linear-gradient(135deg,#140500,#001414,#100014); }
+.ls-bg-7 { background:linear-gradient(135deg,#001414,#140014,#001400); }
+.ls-grad {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 100%);
+}
+.ls-info { position:absolute; bottom:0; left:0; right:0; padding:24px 20px; z-index:2; }
+.ls-name {
+  font-family:var(--serif); font-size:20px; font-weight:400; color:var(--white);
+  margin-bottom:4px;
+}
+.ls-count { font-size:10px; color:rgba(255,255,255,0.55); letter-spacing:1px; }
+.ls-discover {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--white);
+  border:1px solid rgba(255,255,255,0.5); padding:8px 18px;
+  opacity:0; transition:opacity 0.3s; white-space:nowrap; z-index:3;
+}
+.lifestyle-card:hover .ls-discover { opacity:1; }
+
+/* REGION BUTTONS */
+.regions { display:flex; flex-wrap:wrap; gap:3px; margin-top:52px; }
+.region-btn {
+  border:1px solid var(--gray-mid); padding:12px 22px; cursor:pointer;
+  font-family:var(--sans); font-size:11px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--text); background:var(--white);
+  font-weight:400; transition:all 0.2s;
+}
+.region-btn:hover, .region-btn.active { background:var(--text); color:var(--white); border-color:var(--text); }
+
+/* NEW DEVELOPMENTS */
+.dev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:52px; }
+.dev-card { cursor:pointer; }
+.dev-img {
+  width:100%; aspect-ratio:16/10; overflow:hidden; margin-bottom:16px;
+  position:relative;
+}
+.dev-img-inner {
+  width:100%; height:100%; position:absolute; inset:0;
+  background:linear-gradient(135deg,#1e0d2d,#0d2d1e);
+  transition:transform 0.5s ease;
+}
+.dev-card:nth-child(2) .dev-img-inner { background:linear-gradient(135deg,#2d1e0d,#0d1e2d); }
+.dev-card:nth-child(3) .dev-img-inner { background:linear-gradient(135deg,#0d2d2d,#2d0d1e); }
+.dev-card:hover .dev-img-inner { transform:scale(1.05); }
+.dev-badge {
+  display:inline-block; font-size:8px; letter-spacing:2px; text-transform:uppercase;
+  background:var(--gold); color:var(--white); padding:3px 10px; margin-bottom:10px;
+}
+.dev-name { font-family:var(--serif); font-size:20px; font-weight:400; margin-bottom:6px; line-height:1.2; }
+.dev-loc { font-size:11px; color:var(--gray-dark); letter-spacing:0.5px; margin-bottom:10px; }
+.dev-price { font-family:var(--serif); font-size:17px; color:var(--text); }
+.dev-link {
+  display:inline-block; margin-top:12px; font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--gold); text-decoration:none;
+  border-bottom:1px solid var(--gold); padding-bottom:1px;
+}
+
+/* PROMO BAND */
+.promo-band {
+  background:var(--black); padding:80px 48px;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+}
+.promo-visual {
+  aspect-ratio:4/3; position:relative; overflow:hidden;
+  background:linear-gradient(135deg, #0a1a0a 0%, #1a0a1a 50%, #0a0a1a 100%);
+}
+.promo-visual::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse at 40% 60%, rgba(201,168,76,0.12) 0%, transparent 60%);
+}
+.promo-body { color:var(--white); }
+.promo-body .tag-line { color:var(--gold); }
+.promo-body .tag-line::before { background:var(--gold); }
+.promo-body h2 { font-family:var(--serif); font-size:clamp(30px,3vw,48px); font-weight:300; color:var(--white); margin-bottom:20px; }
+.promo-body p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.9; margin-bottom:32px; }
+.btn-gold {
+  display:inline-block; background:var(--gold); color:var(--white);
+  font-family:var(--sans); font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; padding:14px 30px; text-decoration:none;
+  font-weight:600; transition:background 0.3s; border:none; cursor:pointer;
+}
+.btn-gold:hover { background:#b8943e; }
+.btn-outline-white {
+  display:inline-block; border:1px solid rgba(255,255,255,0.4); color:rgba(255,255,255,0.85);
+  font-family:var(--sans); font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; padding:14px 30px; text-decoration:none;
+  font-weight:500; margin-left:12px; transition:all 0.3s;
+}
+.btn-outline-white:hover { border-color:var(--gold); color:var(--gold); }
+
+/* BLOG */
+.blog-grid { display:grid; grid-template-columns:1.8fr 1fr 1fr; gap:3px; margin-top:52px; }
+.blog-card { cursor:pointer; }
+.blog-img {
+  width:100%; aspect-ratio:16/10; overflow:hidden;
+  margin-bottom:16px; position:relative;
+}
+.blog-card.main .blog-img { aspect-ratio:4/3; }
+.blog-img-inner {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,#1a1e0d,#0d1a1e);
+  transition:transform 0.5s ease;
+}
+.blog-card:nth-child(2) .blog-img-inner { background:linear-gradient(135deg,#1e0d1a,#0d1e1a); }
+.blog-card:nth-child(3) .blog-img-inner { background:linear-gradient(135deg,#1e1a0d,#0d0d1e); }
+.blog-card:hover .blog-img-inner { transform:scale(1.04); }
+.blog-category {
+  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--gold); font-weight:600; margin-bottom:8px;
+}
+.blog-title { font-family:var(--serif); font-size:19px; font-weight:400; line-height:1.3; margin-bottom:8px; }
+.blog-card.main .blog-title { font-size:26px; }
+.blog-date { font-size:11px; color:var(--gray-dark); }
+.blog-excerpt { font-size:12px; color:var(--gray-dark); line-height:1.8; margin-top:8px; }
+
+/* MAGAZINE */
+.mag-section {
+  background:var(--black); padding:90px 48px;
+  display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center;
+}
+.mag-covers { display:flex; gap:16px; }
+.mag-cover {
+  flex:1; aspect-ratio:2/3;
+  background:linear-gradient(135deg,#0d1e2d,#1e0d0d);
+  border:1px solid rgba(255,255,255,0.1); position:relative;
+  overflow:hidden; cursor:pointer; transition:transform 0.3s;
+}
+.mag-cover:hover { transform:translateY(-6px); }
+.mag-cover:nth-child(2) { background:linear-gradient(135deg,#1e2d0d,#0d0d1e); margin-top:28px; }
+.mag-cover:nth-child(3) { background:linear-gradient(135deg,#2d0d1e,#0d1e0d); margin-top:56px; }
+.mag-cover-label {
+  position:absolute; bottom:0; left:0; right:0; padding:16px;
+  background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-family:var(--serif); font-size:12px; color:rgba(255,255,255,0.8);
+}
+.mag-body { color:var(--white); }
+.mag-body .tag-line { color:var(--gold); }
+.mag-body .tag-line::before { background:var(--gold); }
+.mag-body h2 { font-family:var(--serif); font-size:clamp(28px,3vw,44px); font-weight:300; color:var(--white); margin-bottom:20px; line-height:1.2; }
+.mag-body p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.9; margin-bottom:32px; }
+
+/* OFFICES */
+.offices-row {
+  display:flex; flex-wrap:wrap; gap:0;
+  margin-top:52px; border:1px solid var(--gray-mid);
+}
+.office-item {
+  flex:1; min-width:180px; padding:32px 24px;
+  border-right:1px solid var(--gray-mid);
+  cursor:pointer; transition:background 0.2s; text-align:center;
+}
+.office-item:last-child { border-right:none; }
+.office-item:hover { background:var(--gray-light); }
+.office-city { font-family:var(--serif); font-size:18px; font-weight:400; margin-bottom:6px; }
+.office-count { font-size:10px; color:var(--gray-dark); letter-spacing:1px; text-transform:uppercase; }
+
+/* NEWSLETTER */
+.nl-section {
+  background:var(--gray-light); text-align:center; padding:80px 48px;
+  border-top:1px solid var(--gray-mid); border-bottom:1px solid var(--gray-mid);
+}
+.nl-section h2 { font-family:var(--serif); font-size:38px; font-weight:300; margin-bottom:12px; }
+.nl-section p { font-size:13px; color:var(--gray-dark); margin-bottom:36px; line-height:1.8; max-width:480px; margin-left:auto; margin-right:auto; }
+.nl-form { display:inline-flex; border:1px solid var(--gray-mid); background:var(--white); max-width:500px; width:100%; }
+.nl-form input {
+  flex:1; border:none; outline:none; padding:14px 18px;
+  font-family:var(--sans); font-size:13px; font-weight:300; color:var(--text);
+}
+.nl-form input::placeholder { color:#aaa; }
+.nl-form button {
+  background:var(--text); color:var(--white); border:none; cursor:pointer;
+  padding:14px 22px; font-family:var(--sans); font-size:10px;
+  letter-spacing:2px; text-transform:uppercase; font-weight:600; transition:background 0.3s;
+}
+.nl-form button:hover { background:var(--gold); }
+
+/* FOOTER */
+footer { background:var(--black); color:rgba(255,255,255,0.7); padding:70px 48px 32px; }
+.footer-grid {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr;
+  gap:48px; padding-bottom:56px;
+  border-bottom:1px solid rgba(255,255,255,0.1); margin-bottom:32px;
+}
+.footer-logo {
+  font-family:var(--serif); font-size:20px; font-weight:600;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--white); text-decoration:none; display:block; margin-bottom:16px;
+}
+.footer-logo span { color:var(--gold); }
+.footer-about { font-size:12px; line-height:1.9; max-width:260px; }
+.footer-socials { display:flex; gap:10px; margin-top:20px; }
+.footer-socials a {
+  width:32px; height:32px; border:1px solid rgba(255,255,255,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:600; color:rgba(255,255,255,0.5);
+  text-decoration:none; transition:all 0.2s;
+}
+.footer-socials a:hover { border-color:var(--gold); color:var(--gold); }
+.footer-col h4 {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:20px; font-weight:600;
+}
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:10px; }
+.footer-col ul a { font-size:12px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color 0.2s; }
+.footer-col ul a:hover { color:var(--white); }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px; color:rgba(255,255,255,0.3);
+}
+
+/* ANIMATIONS */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width:1024px) {
+  header { padding:0 24px; }
+  .nav-main a { padding:0 10px; font-size:10px; }
+  .section, .section-sm { padding:70px 24px; }
+  .promo-band, .mag-section { grid-template-columns:1fr; gap:48px; padding:70px 24px; }
+  .feat-grid { grid-template-columns:1fr 1fr; }
+  .feat-card.hero-card { grid-column:1/3; }
+  .lifestyle-grid { grid-template-columns:repeat(2,1fr); }
+  .dev-grid { grid-template-columns:1fr 1fr; gap:20px; }
+  .blog-grid { grid-template-columns:1fr 1fr; }
+  .blog-card.main { grid-column:span 2; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:640px) {
+  .feat-grid, .dev-grid, .blog-grid { grid-template-columns:1fr; }
+  .feat-card.hero-card, .blog-card.main { grid-column:auto; }
+  .lifestyle-grid { grid-template-columns:1fr 1fr; }
+  .nav-main { display:none; }
+  .hero-search { flex-direction:column; min-width:90vw; }
+  .hs-field { border-right:none; border-bottom:1px solid var(--gray-mid); }
+  .offices-row { flex-direction:column; }
+  .office-item { border-right:none; border-bottom:1px solid var(--gray-mid); }
+  .footer-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr" class="over-hero">
+  <a class="logo" href="#"><span>The</span>VHomes</a>
+  <nav class="nav-main">
+    <a href="#buy">Buy</a>
+    <a href="#rent">Rent</a>
+    <a href="#developments">New Developments</a>
+    <a href="#lifestyle">Lifestyle</a>
+    <a href="#about">About Us</a>
+    <a href="#blog">Blog</a>
+  </nav>
+  <div class="nav-right">
+    <a href="#offices">Our Offices</a>
+    <a href="#contact" class="nav-contact">Contact</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Worldwide Leader in Luxury Real Estate</div>
+    <h1>Discover <em>Extraordinary</em><br>Properties</h1>
+    <p class="hero-sub">Curated luxury homes for sale and rent across the world's most prestigious destinations</p>
+    <div class="hero-search">
+      <div class="hs-field">
+        <label for="s-type">Type</label>
+        <select id="s-type">
+          <option>For Sale</option>
+          <option>For Rent</option>
+          <option>New Developments</option>
+        </select>
+      </div>
+      <div class="hs-field" style="flex:2">
+        <label for="s-where">Where</label>
+        <input id="s-where" type="text" placeholder="City, Region, Country...">
+      </div>
+      <div class="hs-field">
+        <label for="s-cat">Category</label>
+        <select id="s-cat">
+          <option>All Properties</option>
+          <option>Villa</option>
+          <option>Penthouse</option>
+          <option>Historic Estate</option>
+          <option>Waterfront</option>
+          <option>Country Home</option>
+        </select>
+      </div>
+      <div class="hs-field">
+        <label for="s-price">Price</label>
+        <select id="s-price">
+          <option>Any Price</option>
+          <option>Up to $1M</option>
+          <option>$1M – $3M</option>
+          <option>$3M – $5M</option>
+          <option>$5M – $10M</option>
+          <option>$10M+</option>
+        </select>
+      </div>
+      <button class="hs-btn">Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROPERTIES -->
+<section class="section" id="buy">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">Featured Properties</div>
+      <h2 class="title">Properties for <em>Sale</em></h2>
+    </div>
+    <a href="#" class="see-all">View all properties</a>
+  </div>
+  <div class="feat-grid reveal">
+    <div class="feat-card hero-card">
+      <div class="feat-thumb-inner"></div>
+      <div class="feat-grad"></div>
+      <div class="feat-info">
+        <span class="feat-badge">Just Listed</span>
+        <div class="feat-title">Villa Serenova — Cliffside Estate with Infinity Pool</div>
+        <div class="feat-loc">Malibu, California, United States</div>
+        <div class="feat-price">$18,500,000</div>
+        <div class="feat-details">
+          <span>6 Bedrooms</span><span>7 Bathrooms</span><span>9,200 sq ft</span><span>Ocean Views</span>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-thumb-inner"></div>
+      <div class="feat-grad"></div>
+      <div class="feat-info">
+        <span class="feat-badge">Exclusive</span>
+        <div class="feat-title">Penthouse at The Meridian Tower</div>
+        <div class="feat-loc">Manhattan, New York, USA</div>
+        <div class="feat-price">$12,000,000</div>
+        <div class="feat-details"><span>4 Beds</span><span>5 Baths</span><span>4,800 sq ft</span></div>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-thumb-inner"></div>
+      <div class="feat-grad"></div>
+      <div class="feat-info">
+        <span class="feat-badge">New</span>
+        <div class="feat-title">Chateau de Lumière, Côte d'Azur</div>
+        <div class="feat-loc">Saint-Tropez, France</div>
+        <div class="feat-price">€24,000,000</div>
+        <div class="feat-details"><span>8 Beds</span><span>9 Baths</span><span>14,000 sq ft</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE CATEGORIES -->
+<section class="section section-bg" id="lifestyle">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">Browse by Lifestyle</div>
+      <h2 class="title">Find Your <em>Perfect</em> Home</h2>
+    </div>
+    <a href="#" class="see-all">Explore all lifestyles</a>
+  </div>
+  <div class="lifestyle-grid reveal">
+    <div class="lifestyle-card wide">
+      <div class="ls-bg ls-bg-1"></div>
+      <div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info">
+        <div class="ls-name">Historic Homes &amp; Castles</div>
+        <div class="ls-count">From centuries-old estates to iconic landmarks</div>
+      </div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-2"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">Vineyards &amp; Estates</div><div class="ls-count">Wine country living</div></div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-3"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">Beach &amp; Coastal</div><div class="ls-count">Sun, sand and crystal waters</div></div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-4"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">Waterfront</div><div class="ls-count">Lake, river &amp; sea views</div></div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-5"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">City &amp; Penthouse</div><div class="ls-count">Metropolitan luxury</div></div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-6"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">Country &amp; Rural</div><div class="ls-count">Peaceful country living</div></div>
+    </div>
+    <div class="lifestyle-card">
+      <div class="ls-bg ls-bg-7"></div><div class="ls-grad"></div>
+      <div class="ls-discover">Discover</div>
+      <div class="ls-info"><div class="ls-name">Eco &amp; Sustainable</div><div class="ls-count">Smart, green homes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH BY REGION -->
+<section class="section-sm" style="border-top:1px solid var(--gray-mid);">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">Destinations</div>
+      <h2 class="title">Search by <em>Region</em></h2>
+    </div>
+    <a href="#" class="see-all">View all destinations</a>
+  </div>
+  <div class="regions reveal">
+    <button class="region-btn active">All Regions</button>
+    <button class="region-btn">New York</button>
+    <button class="region-btn">London</button>
+    <button class="region-btn">Paris</button>
+    <button class="region-btn">Dubai</button>
+    <button class="region-btn">Tuscany</button>
+    <button class="region-btn">Côte d'Azur</button>
+    <button class="region-btn">Monaco</button>
+    <button class="region-btn">Amalfi Coast</button>
+    <button class="region-btn">Swiss Alps</button>
+    <button class="region-btn">Maldives</button>
+    <button class="region-btn">Singapore</button>
+    <button class="region-btn">Los Angeles</button>
+    <button class="region-btn">Miami</button>
+    <button class="region-btn">Sydney</button>
+  </div>
+</section>
+
+<!-- NEW DEVELOPMENTS -->
+<section class="section section-bg" id="developments">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">Off-Plan &amp; New Build</div>
+      <h2 class="title">New <em>Developments</em></h2>
+    </div>
+    <a href="#" class="see-all">All developments</a>
+  </div>
+  <div class="dev-grid reveal">
+    <div class="dev-card">
+      <div class="dev-img"><div class="dev-img-inner"></div></div>
+      <span class="dev-badge">Pre-Launch</span>
+      <div class="dev-name">One Palm Residences</div>
+      <div class="dev-loc">Palm Jumeirah, Dubai</div>
+      <div class="dev-price">From AED 6,500,000</div>
+      <a href="#" class="dev-link">Discover Project →</a>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img"><div class="dev-img-inner"></div></div>
+      <span class="dev-badge">Completion 2026</span>
+      <div class="dev-name">The Kensington Collection</div>
+      <div class="dev-loc">Kensington, London</div>
+      <div class="dev-price">From £4,200,000</div>
+      <a href="#" class="dev-link">Discover Project →</a>
+    </div>
+    <div class="dev-card">
+      <div class="dev-img"><div class="dev-img-inner"></div></div>
+      <span class="dev-badge">Coming Soon</span>
+      <div class="dev-name">Riviera Grande Residences</div>
+      <div class="dev-loc">Monaco</div>
+      <div class="dev-price">From €8,900,000</div>
+      <a href="#" class="dev-link">Discover Project →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO BAND -->
+<div class="promo-band">
+  <div class="promo-visual"></div>
+  <div class="promo-body">
+    <div class="tag-line">Private Client Services</div>
+    <h2>Find Your Home<br><em>Before It's Listed</em></h2>
+    <p>Gain exclusive access to off-market properties and pre-launch opportunities worldwide. Our private client team maintains relationships with sellers and developers who prefer discretion — giving our clients a decisive advantage.</p>
+    <a href="#" class="btn-gold">Request Private Access</a>
+    <a href="#" class="btn-outline-white">Learn More</a>
+  </div>
+</div>
+
+<!-- BLOG / NEWS -->
+<section class="section" id="blog">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">News &amp; Insights</div>
+      <h2 class="title">From Our <em>Blog</em></h2>
+    </div>
+    <a href="#" class="see-all">All articles</a>
+  </div>
+  <div class="blog-grid reveal">
+    <div class="blog-card main">
+      <div class="blog-img" style="aspect-ratio:4/3"><div class="blog-img-inner"></div></div>
+      <div class="blog-category">Market Report</div>
+      <div class="blog-title">Luxury Outlook 2026: The Markets to Watch This Year</div>
+      <div class="blog-date">March 12, 2026</div>
+      <div class="blog-excerpt">Our annual report reveals the global luxury real estate trends, emerging destinations, and investment opportunities shaping the year ahead.</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><div class="blog-img-inner"></div></div>
+      <div class="blog-category">Travel Tuesday</div>
+      <div class="blog-title">The Most Beautiful Historic Villas on the Amalfi Coast</div>
+      <div class="blog-date">March 5, 2026</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img"><div class="blog-img-inner"></div></div>
+      <div class="blog-category">Just Listed</div>
+      <div class="blog-title">Perched Above the Sea: A Capri Clifftop Villa Like No Other</div>
+      <div class="blog-date">February 28, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAGAZINE -->
+<div class="mag-section">
+  <div class="mag-covers">
+    <div class="mag-cover"><div class="mag-cover-label">Spring 2026</div></div>
+    <div class="mag-cover"><div class="mag-cover-label">Winter 2025</div></div>
+    <div class="mag-cover"><div class="mag-cover-label">Summer 2025</div></div>
+  </div>
+  <div class="mag-body">
+    <div class="tag-line">Our Magazine</div>
+    <h2>TheVHomes<br><em>Magazine</em></h2>
+    <p>Our exclusive magazine showcases the world's most remarkable homes, alongside curated interviews, destination guides, and in-depth insights into the art of luxury living. Published three times a year.</p>
+    <a href="#" class="btn-gold">Read Latest Issue</a>
+    <a href="#" class="btn-outline-white">All Issues</a>
+  </div>
+</div>
+
+<!-- OFFICES -->
+<section class="section" id="offices">
+  <div class="section-head reveal">
+    <div>
+      <div class="tag-line">Our Network</div>
+      <h2 class="title">Global <em>Offices</em></h2>
+    </div>
+    <a href="#" class="see-all">Find an office</a>
+  </div>
+  <div class="offices-row reveal">
+    <div class="office-item"><div class="office-city">New York</div><div class="office-count">142 Properties</div></div>
+    <div class="office-item"><div class="office-city">London</div><div class="office-count">98 Properties</div></div>
+    <div class="office-item"><div class="office-city">Paris</div><div class="office-count">74 Properties</div></div>
+    <div class="office-item"><div class="office-city">Dubai</div><div class="office-count">116 Properties</div></div>
+    <div class="office-item"><div class="office-city">Monaco</div><div class="office-count">38 Properties</div></div>
+    <div class="office-item"><div class="office-city">Miami</div><div class="office-count">65 Properties</div></div>
+    <div class="office-item"><div class="office-city">Singapore</div><div class="office-count">52 Properties</div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="nl-section" id="contact">
+  <div class="tag-line" style="justify-content:center">Stay Informed</div>
+  <h2>Subscribe to Our <em style="font-style:italic">Newsletter</em></h2>
+  <p>Receive exclusive property alerts, market reports, and insider access to off-market listings before they go public.</p>
+  <form class="nl-form" onsubmit="return false">
+    <input type="email" placeholder="Your email address">
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a class="footer-logo" href="#"><span>The</span>VHomes</a>
+      <p class="footer-about">TheVHomes is a global luxury real estate agency dedicated to connecting extraordinary clients with exceptional properties across the world's most coveted destinations.</p>
+      <div class="footer-socials">
+        <a href="#">in</a><a href="#">ig</a><a href="#">fb</a><a href="#">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <ul>
+        <li><a href="#">For Sale</a></li>
+        <li><a href="#">For Rent</a></li>
+        <li><a href="#">New Developments</a></li>
+        <li><a href="#">Vacation Homes</a></li>
+        <li><a href="#">Off-Market</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Lifestyle</h4>
+      <ul>
+        <li><a href="#">Historic &amp; Castles</a></li>
+        <li><a href="#">Beach &amp; Coastal</a></li>
+        <li><a href="#">Waterfront</a></li>
+        <li><a href="#">Vineyards</a></li>
+        <li><a href="#">City Residences</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Offices</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Magazine</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Find an Agent</a></li>
+        <li><a href="#">List Your Property</a></li>
+        <li><a href="#">Private Consultation</a></li>
+        <li><a href="#">hello@thevhomes.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TheVHomes. All rights reserved.</span>
+    <span>Privacy Policy · Terms &amp; Conditions · Cookie Policy</span>
+  </div>
+</footer>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  const heroH = document.querySelector('.hero');
+  function checkScroll() {
+    if (window.scrollY > heroH.offsetHeight - 80) {
+      hdr.classList.remove('over-hero');
+    } else {
+      hdr.classList.add('over-hero');
+    }
+  }
+  window.addEventListener('scroll', checkScroll);
+  checkScroll();
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.querySelectorAll('.region-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
