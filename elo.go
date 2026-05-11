@@ -6,6 +6,12 @@ import (
 	"github.com/01-edu/z01"
 )
 
+
+
+func PrintNbr(n int){
+	
+}
+
 func main() {
 	piscine.PrintNbr(-123)
 	piscine.PrintNbr(0)
